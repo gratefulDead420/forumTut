@@ -1,11 +1,15 @@
 <?php
 
-session_start
 
 /*
 * script: forum_main.php
-* @developed by gratefulDeadty
+* @developed by gratefulDeadty 2014
 */
+
+
+require_once = 'init.php'; //our script which begins the forum & database connection.
+
+
 
 $forums = new Forum($dbh); //calls Forum class.
 
@@ -33,8 +37,8 @@ if ($_GET['forum'])
 		$count = $stmt->rowCount();
 		if ($count == 0)
 		{
-			echo '<p>No topics have been found under '.htmlspecialchars($_GET['forum'],ENT_QUOTES).'</p>';
-			echo '<br /><br /><a href="addtopic.php?forum='.$_GET['forum'].'">Add Topic</a>';
+			echo '<p>No topics have been found under the '.htmlspecialchars($_GET['forum'],ENT_QUOTES).' forum.</p>';
+			echo '<br /><br /><a href="addtopic.php?forum='.htmlspecialchars($_GET['forum'],ENT_QUOTES).'">Add Topic</a>';
 		}
 		else
 		{
