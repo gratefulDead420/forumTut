@@ -38,7 +38,10 @@ if (empty($_GET['forum']))
 		$forum_name = $forum['name']; //name
 		$forum_desc = $forum['description']; //description
                 $forumid = $forum['id'];
-		echo '<tr><td><a href="forum.php?forum='.$forumid.'">' .$forum_name . '</a></td><td><i>' . $forum_desc . '</i></td><td>1</td><td>1</div></td><td><i>last post by</i></td>';
+                $lastpost = $forum['lastpost'];
+                $totaltopics = $forums->totalTopics($forumid);
+                $totalreplies = $forums->totalReplies($forumid);
+		echo '<tr><td><a href="forum.php?forum='.$forumid.'">' .$forum_name . '</a></td><td><i>' . $forum_desc . '</i></td><td>'.$totaltopics.'</td><td>'.$totalreplies.'</div></td><td><i>last post by ' .$lastpost. '</i></td>';
 
 	} //end foreach()
         echo '</tr></table>';
