@@ -42,9 +42,9 @@ else
     $stmt->execute();
     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $reply)
     {
-        $reply_username = $reply['username'];
-	    $reply_message = $reply['message'];
-	    echo ' ' .$reply_username. ' - ' .$reply_message. '<br />';
+    	$reply_username = $reply['username'];
+	$reply_message = $reply['message'];
+	echo ' ' .$reply_username. ' - ' .$reply_message. '<br />';
     }
 
 	echo '<br /><div><strong>Reply:</strong><form method="POST">Email/Name: <input type="text" name="username"><br /><textarea name="message" cols="40" rows="4">Body</textarea>
@@ -61,17 +61,17 @@ if (isset($_POST['submit']))
 	}
 	else
 	{
-	    //insert the reply into the database.
+	    	//insert the reply into the database.
 		$message = $_POST['message'];
 		$username = $_POST['username'];
 		$topicid = $_POST['topicid'];
 		$insert_reply = $forums->addReply($message,$username,$topicid);
-	    echo 'You have created a reply!';
+	    	echo 'You have created a reply!';
 	}
 
 }
 
-    //displaying all errors from the $errors[] array.
+    	//displaying all errors from the $errors[] array.
 	if (empty($errors) === false)
 	{
     	echo '<p>' . implode('</p><p>', $errors) . '</p>';	
