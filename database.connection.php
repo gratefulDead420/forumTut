@@ -5,15 +5,15 @@
 */
 
 $config = array( 
-	'host'		=> 'localhost', 
-	'username' 	=> 'root',
-	'password' 	=> 'pass',
-	'dbname' 	=> 'forum'
+	'host'		=> 'host', 
+	'username' 	=> 'db_user',
+	'password' 	=> 'db_pass',
+	'dbname' 	=> 'db_name'
 	);
 
 try
 {
-	
+
 	$dbh = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'], $config['username'], $config['password']);
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -22,7 +22,6 @@ try
 catch(PDOException $e)
 {
 	echo 'Connection failed: ' . $e->getMessage();
-    //file_put_contents('connection.errors.txt', $e->getMessage().PHP_EOL,FILE_APPEND);
 }
 
 ?>
