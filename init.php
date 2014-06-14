@@ -3,12 +3,11 @@
 session_start();
 
 require 'database.connection.php';
+require 'forum.class.php';
 
-$forums = new Forum($dbh);
-$errors = array();
+$forums = new Forum($dbh); //begin our forum class.
+$errors = array(); //begin our error array.
 
-//ob_start();
-
-/* if error 'header already sent' undo the ob_start note. */
+ob_start();
 
 ?>
