@@ -1,13 +1,11 @@
 <?php
 
 /*
-* script: add_topic.php
+* script: addtopic.php
 * @developed by gratefulDeadty
 */
 
-require_once 'init.php'; 
-
-$errors = array(); //for displaying errors.
+require 'init.php'; 
 
 if(empty($_GET['forum']) === true)
 {
@@ -16,10 +14,10 @@ if(empty($_GET['forum']) === true)
 else
 {
 	echo '<form method="POST">
-	<input type="text" name="username">
-	<input type="text" name="title">
-	<input type="text" name="message">
-	<input type="submit" name="Submit" value="Submit">';
+	Email/Name: <input type="text" name="username"><br />
+	Subject: <input type="text" name="title"><br />
+	Message: <input type="text" name="message"><br />
+	<input type="submit" name="submit" value="Submit">';
 }
 
 if (isset($_POST['submit']))
@@ -50,4 +48,3 @@ if (empty($errors) === false)
 }
 
 ?>
-
