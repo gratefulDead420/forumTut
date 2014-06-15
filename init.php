@@ -2,12 +2,18 @@
 
 session_start();
 
-require 'database.connection.php';
+require 'database.php';
 require 'forum.class.php';
 
-$forums = new Forum($dbh); //begin our forum class.
-$errors = array(); //begin our error array.
+$forums = new Forum($dbh);
+$errors = array();
 
-ob_start();
+ob_start("ob_gzhandler");
 
 ?>
+
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
