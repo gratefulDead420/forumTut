@@ -1,11 +1,13 @@
 <?php
 
 /*
-* script: addtopic.php
+* script: add_topic.php
 * @developed by gratefulDeadty
 */
 
 require 'init.php'; 
+
+$errors = array(); //for displaying errors.
 
 if(empty($_GET['forum']) === true)
 {
@@ -13,11 +15,11 @@ if(empty($_GET['forum']) === true)
 }
 else
 {
-	echo '<form method="POST">
+	echo '<div><form method="POST">
 	Email/Name: <input type="text" name="username"><br />
-	Subject: <input type="text" name="title"><br />
-	Message: <input type="text" name="message"><br />
-	<input type="submit" name="submit" value="Submit">';
+	Post Title: <input type="text" name="title"><br />
+	Post Body: <input type="text" name="message"><br />
+	<input type="submit" name="submit" value="Submit"></div>';
 }
 
 if (isset($_POST['submit']))
@@ -34,17 +36,18 @@ if (isset($_POST['submit']))
 			$title = htmlentities($_POST['title']);
 			$message = htmlentities($_POST['message']);
 			$whatforum = (int)$_GET['forum'];
-			$forums->addTopic($username,$title,$message,$whatforum);
+                        $created = date('Y-m-d H:i:s');
+			$forums->addTopic($username,$title,$message,$whatforum,$created);
+                        $newtopicid = $dbh->lastInsertId();
 			echo '<p>Thank you, your topic has been added to the '.htmlspecialchars($_GET['forum'],ENT_QUOTES).' forum.</p>';
-			echo '<br /><a href="forum.php">Back to main board</a>';
+			echo '<br /><a href="forum.php">Back to main board</a> <font color="#898989">or click <a href="topic.php?id='.$newtopicid.'">here</a>';
 		}
 	}
 }
 
 //displaying all errors from the $errors[] array.
 if (empty($errors) === false)
-{
-	echo '<p>' . implode('</p><p>', $errors) . '</p>';	
+{ 
+	echo ' '.implode($errors).' ';
 }
-
 ?>
