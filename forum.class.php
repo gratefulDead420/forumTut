@@ -7,7 +7,7 @@
 
 class Forum
 {
-	private $dbh; //database handler.
+	private $dbh; //dbh = database handler.
 	public function __construct($database)
 	{
 		$this->dbh = $database;
@@ -16,7 +16,7 @@ class Forum
 /* function that gets the main forum board */
 public function getForum()
 {
-	$query = $this->dbh->prepare('SELECT * FROM `forum_main` ORDER BY `id` DESC');
+	$query = $this->dbh->prepare('SELECT * FROM `forum_main` ORDER BY `id` ASC');
 	try
 	{
 		$query->execute();
@@ -28,14 +28,31 @@ public function getForum()
 	return $query->fetchAll();
 }
 
-/* function that inserts a new topic */
-public function addTopic($username, $title, $message, $whatforum)
+/* function that gathers the topic list, based off which forum a user is viewing. */
+public function getTopics($forumid)
 {
-	$query = $this->dbh->prepare("INSERT INTO `topics` (`starter`, `title`, `message`, `forum`) VALUES (?, ?, ?, ?) ");
+	$query = $this->dbh->prepare("SELECT * FROM `topics` WHERE `forum`= ?");
+	$query->bindValue(1, $forumid);
+	try
+	{
+		$query->execute();
+		return $query->fetchAll();
+	} 
+	catch(PDOException $e)
+	{
+		die($e->getMessage());
+	}
+}
+
+/* function that inserts a new topic */
+public function addTopic($username, $title, $message, $whatforum, $created)
+{
+	$query = $this->dbh->prepare("INSERT INTO `topics` (`starter`, `title`, `message`, `forum`, `created`) VALUES (?, ?, ?, ?, ?) ");
 	$query->bindValue(1, $username);
 	$query->bindValue(2, $title);
 	$query->bindValue(3, $message);
 	$query->bindValue(4, $whatforum);
+        $query->bindValue(5, $created);
 	try
 	{
 		$query->execute();
@@ -62,13 +79,32 @@ public function topicData($topicid)
 	}
 }
 
-/* function that inserts a new reply */
-public function addReply($message, $username, $topicid)
+/* function that gathers information about the replies within the topic. */
+public function replyData($topicid) 
 {
-	$query = $this->dbh->prepare("INSERT INTO `replies` (`message`, `username`, `topicid`) VALUES (?, ?, ?) ");
+	$query = $this->dbh->prepare("SELECT * FROM `replies` WHERE `topicid`= ?");
+	$query->bindValue(1, $topicid);
+	try
+	{
+		$query->execute();
+	}
+	catch(PDOException $e)
+	{
+		die($e->getMessage());
+	}
+	return $query->fetchAll();
+}
+
+
+/* function that inserts a new reply */
+public function addReply($message, $username, $topicid, $whatforum, $created)
+{
+	$query = $this->dbh->prepare("INSERT INTO `replies` (`message`, `username`, `topicid`, `forum`, `created`) VALUES (?, ?, ?, ?, ?) ");
 	$query->bindValue(1, $message);
 	$query->bindValue(2, $username);
 	$query->bindValue(3, $topicid);
+        $query->bindValue(4, $whatforum);
+        $query->bindValue(5, $created);
 	try
 	{
 		$query->execute();
@@ -79,4 +115,37 @@ public function addReply($message, $username, $topicid)
 	}	
 }
 
-} //end Forum class.
+
+/* function that adds up the total amount of topics. */
+public function totalTopics($forumid)
+{
+	$query = $this->dbh->prepare("SELECT id FROM topics WHERE forum = ?");
+        $query->bindValue(1, $forumid);
+        try
+	{
+		$query->execute();
+		return $query->rowCount();
+	} 
+	catch(PDOException $e)
+	{
+		die($e->getMessage());
+	}
+}
+
+
+public function totalReplies($forumid)
+{
+	$query = $this->dbh->prepare("SELECT id FROM replies WHERE forum = ?");
+        $query->bindValue(1, $forumid);
+        try
+	{
+		$query->execute();
+		return $query->rowCount();
+	} 
+	catch(PDOException $e)
+	{
+		die($e->getMessage());
+	}
+}
+
+} //end Forum class.	
