@@ -148,4 +148,21 @@ public function totalReplies($forumid)
 	}
 }
 
+
+public function updatelastPost($whatforum)
+{
+	$query = $this->dbh->prepare('UPDATE `forum_main` SET `lastpost`=? WHERE `id`=? ');
+	$query->bindValue(1, $username);
+	$query->bindValue(2, $whatforum);
+	try
+	{
+		$query->execute();
+	}
+	catch(PDOException $e)
+	{
+		die($e->getMessage());
+	}	
+}
+
+
 } //end Forum class.	
