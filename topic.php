@@ -5,7 +5,7 @@
 * @developed by gratefulDeadty
 */
 
-require 'init.php';
+require 'config.php';
 
 $topic = $forums->topicData($_GET['id']);
 $reply = $forums->replyData($_GET['id']);
