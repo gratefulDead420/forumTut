@@ -5,9 +5,7 @@
 * @developed by gratefulDeadty
 */
 
-require 'init.php'; 
-
-$errors = array(); //for displaying errors.
+require 'config.php'; 
 
 if(empty($_GET['forum']) === true)
 {
