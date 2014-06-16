@@ -4,24 +4,21 @@
 * script: database.connection.php
 */
 
-$config = array( 
-	'host'		=> 'host', 
-	'username' 	=> 'db_user',
-	'password' 	=> 'db_pass',
-	'dbname' 	=> 'db_name'
-	);
+$host = 'host';
+$dbuser = 'dbuser';
+$dbpass = 'dbpass';
+$dbname = 'dbname';
 
 try
 {
-
-	$dbh = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'], $config['username'], $config['password']);
+	$dbh = new PDO('mysql:host=' . $host . ';dbname=' . $dbname, $dbuser, $dbpass);
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 }
 catch(PDOException $e)
 {
 	echo 'Connection failed: ' . $e->getMessage();
+	//file_put_contents('connection.errors.txt', $e->getMessage().PHP_EOL,FILE_APPEND);
 }
 
 ?>
