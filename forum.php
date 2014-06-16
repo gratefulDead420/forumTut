@@ -49,7 +49,7 @@ if (empty($_GET['forum']))
 		echo '<tr style="background-color:'.$trColor.';"><td><a href="forum.php?forum='.$forumid.'">' .$forum_name . '</a></td><td>' . $forum_desc . '</td><td>'.$totaltopics.'</td><td>'.$totalreplies.'</div></td><td>last post by ' .$lastpost. '</td>';
 		++$color;
 	} //end foreach()
-    echo '</tr></table>';
+    	echo '</tr></table>';
 } //end if()
 
 
@@ -57,7 +57,7 @@ if ($_GET['forum'])
 {
 	if (count($topics) == 0)
 	{
-	    echo '<p>No topics have been found under the '.htmlspecialchars($_GET['forum'],ENT_QUOTES).'</a> forum.</p>';
+		echo '<p>No topics have been found under the '.htmlspecialchars($_GET['forum'],ENT_QUOTES).'</a> forum.</p>';
 		echo '<br /><br /><a href="addtopic.php?forum='.htmlspecialchars($_GET['forum'],ENT_QUOTES).'">Add Topic</a>';
 		die();
 	}
