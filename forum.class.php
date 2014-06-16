@@ -1,8 +1,10 @@
 <?php
 
 /*
-* forum class script.
-* @author gratefulDeadty
+* script: forum.class.php
+* developed by gratefulDeadty
+* 
+* this is our forum class, easily custumizable, and easy to add to it.
 */
 
 class Forum
@@ -31,7 +33,7 @@ public function getForum()
 /* function that gathers the topic list, based off which forum a user is viewing. */
 public function getTopics($forumid)
 {
-	$query = $this->dbh->prepare("SELECT * FROM `topics` WHERE `forum`= ?");
+	$query = $this->dbh->prepare('SELECT * FROM `topics` WHERE `forum`= ?');
 	$query->bindValue(1, $forumid);
 	try
 	{
@@ -47,7 +49,7 @@ public function getTopics($forumid)
 /* function that inserts a new topic */
 public function addTopic($username, $title, $message, $whatforum, $created)
 {
-	$query = $this->dbh->prepare("INSERT INTO `topics` (`starter`, `title`, `message`, `forum`, `created`) VALUES (?, ?, ?, ?, ?) ");
+	$query = $this->dbh->prepare('INSERT INTO `topics` (`starter`, `title`, `message`, `forum`, `created`) VALUES (?, ?, ?, ?, ?) ');
 	$query->bindValue(1, $username);
 	$query->bindValue(2, $title);
 	$query->bindValue(3, $message);
@@ -66,7 +68,7 @@ public function addTopic($username, $title, $message, $whatforum, $created)
 /* function that gathers information about the topic */
 public function topicData($topicid) 
 {
-	$query = $this->dbh->prepare("SELECT * FROM `topics` WHERE `id`= ?");
+	$query = $this->dbh->prepare('SELECT * FROM `topics` WHERE `id`= ?');
 	$query->bindValue(1, $topicid);
 	try
 	{
@@ -82,7 +84,7 @@ public function topicData($topicid)
 /* function that gathers information about the replies within the topic. */
 public function replyData($topicid) 
 {
-	$query = $this->dbh->prepare("SELECT * FROM `replies` WHERE `topicid`= ?");
+	$query = $this->dbh->prepare('SELECT * FROM `replies` WHERE `topicid`= ?');
 	$query->bindValue(1, $topicid);
 	try
 	{
@@ -132,7 +134,7 @@ public function totalTopics($forumid)
 	}
 }
 
-
+/* function that adds up the total amount of replies */
 public function totalReplies($forumid)
 {
 	$query = $this->dbh->prepare("SELECT id FROM replies WHERE forum = ?");
@@ -148,7 +150,7 @@ public function totalReplies($forumid)
 	}
 }
 
-
+/* function that updates the last post, showing on the main forum board */
 public function updatelastPost($whatforum)
 {
 	$query = $this->dbh->prepare('UPDATE `forum_main` SET `lastpost`=? WHERE `id`=? ');
@@ -164,7 +166,7 @@ public function updatelastPost($whatforum)
 	}	
 }
 
-
+/* function that updates the last post, showing on the topics page */
 public function updatelastReply($username,$topicid)
 {
 	$query = $this->dbh->prepare('UPDATE `topics` SET `lastpost`=? WHERE `id`=? ');
