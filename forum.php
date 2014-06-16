@@ -5,7 +5,7 @@
 * @developed by gratefulDeadty 2014
 */
 
-require 'init.php'; //our script which begins the forum & database connection.
+require 'config.php'; //our script which begins the forum & database connection.
 
 $forum_main = $forums->getForum();
 $topics = $forums->getTopics($_GET['forum']);
