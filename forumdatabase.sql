@@ -42,9 +42,10 @@ CREATE TABLE `topics` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `starter` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `lastreply` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `lastpost` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `forum` int(11) NOT NULL,
   `message` text COLLATE latin1_general_ci NOT NULL,
   `created` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sticky` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=11 ;
