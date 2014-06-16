@@ -64,10 +64,8 @@ if (isset($_POST['submit']))
                 $whatforum = htmlentities($topic['forum']);
                 $created = date('Y-m-d H:i:s');
 		$insert_reply = $forums->addReply($message,$username,$topicid,$whatforum,$created);
-                $stmt = $dbh->prepare('UPDATE forum_main SET ' . 'lastpost=:lastpost WHERE ' . 'id=:id ');
-                $stmt->bindParam('lastpost', $username);
-                $stmt->bindParam('id', $whatforum);
-                $stmt->execute();
+                $forumpost_update = $forums->updatelastPost($username,$whatforum);
+                $topicreply_update = $forums->updatelastReply($username,$topicid);
 	        echo 'You have created a reply!';
 	}
 
