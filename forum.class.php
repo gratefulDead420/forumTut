@@ -165,4 +165,20 @@ public function updatelastPost($whatforum)
 }
 
 
+public function updatelastReply($username,$topicid)
+{
+	$query = $this->dbh->prepare('UPDATE `topics` SET `lastpost`=? WHERE `id`=? ');
+	$query->bindValue(1, $username);
+	$query->bindValue(2, $topicid);
+	try
+	{
+		$query->execute();
+	}
+	catch(PDOException $e)
+	{
+		die($e->getMessage());
+	}	
+}
+
+
 } //end Forum class.	
