@@ -32,8 +32,8 @@ if (empty($_GET['forum']))
 </tr>
 </div>
 
-    <?php
-    $color = 1;
+	<?php
+    	$color = 1;
 	foreach ($forum_main as $forum)
 	{
 		if ($color % 2 != 0)
